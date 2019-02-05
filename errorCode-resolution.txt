@@ -10,9 +10,11 @@
 
 405=The 405 Method Not Allowed is an HTTP response status code indicating that the specified request HTTP method was received and recognized by the server, but the server has rejected that particular method for the requested resource. If using PATCH method, some services might expect that the PATCH method must be specified by using the x-method-override header along with a POST method.
 
-411=The HyperText Transfer Protocol (HTTP) 411 Length Required client error response code indicates that the server refuses to accept the request without a defined Content-Length header. 
+411=The HyperText Transfer Protocol (HTTP) 411 Length Required client error response code indicates that the server refuses to accept the request without a defined Content-Length header.
 
 
-500
-502
-503
+500=The 500 Internal Server Error is a very general HTTP status code that means something has gone wrong on the server side, but the target service could not be more specific on what the exact problem is. You can trace the cURL representation of the request sent to the target service from the Oracle Integration Cloud server logs. Try invoking the target service using cURL.
+
+502=The HyperText Transfer Protocol (HTTP) 502 Bad Gateway server error response code indicates that the server, while acting as a gateway or proxy, received an invalid response from the upstream server. 
+
+503=The Web server (running the service) is currently unable to handle the HTTP request due to a temporary overloading or maintenance of the server. The implication is that this is a temporary condition which will be alleviated after some delay.
