@@ -1,9 +1,16 @@
-400=Bad data. 
-401=Unauthorized.
-403
-404
-405
-411
+# HTTP error codes and how to solve these conditions.
+
+400=A 400 Bad Request Error indicates that the target service is unable (or refuses) to process the request sent by the client (Oracle Integration Cloud), due to an issue that is perceived by the server to be a client problem. You can trace the cURL representation of the request sent to the target service from the Oracle Integration Cloud server logs. Try invoking the target service using cURL.  
+
+401=The 401 error message is usually returned by services that requires user credentials. So if you have got this error then it probably means you entered an invalid username or password. 
+
+403=403 error (forbidden), usually implies a lack of permissions to access the API. You might be required to consult the target API documentation or work with the owner/administrator to resolve this issue. There may be several conditions leading to this, but the exact cause is best described by the target service authorization server. Some probable causes of 403 errors are as follows: (i) The current user is not authorized to access the resources, (ii) The access token was procured for a scope that does not cover the API being accessed, (iii) The access token expired or is not valid to access the resource any longer, (iv) The authorization server revoked access privileges to a particular resource.
+
+404=The HTTP 404, 404 Not Found, and 404 error message is a Hypertext Transfer Protocol (HTTP) standard response code, in computer network communications, to indicate that the client was able to communicate with a given server, but the server could not find the resource that was requested. Carefully re-examine the target endpoint that is being called. 
+
+405=The 405 Method Not Allowed is an HTTP response status code indicating that the specified request HTTP method was received and recognized by the server, but the server has rejected that particular method for the requested resource. If using PATCH method, some services might expect that the PATCH method must be specified by using the x-method-override header along with a POST method.
+
+411=The HyperText Transfer Protocol (HTTP) 411 Length Required client error response code indicates that the server refuses to accept the request without a defined Content-Length header. 
 
 
 500
