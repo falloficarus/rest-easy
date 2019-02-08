@@ -10,8 +10,19 @@
 
 405=The 405 Method Not Allowed is an HTTP response status code indicating that the specified request HTTP method was received and recognized by the server, but the server has rejected that particular method for the requested resource. If using PATCH method, some services might expect that the PATCH method must be specified by using the x-method-override header along with a POST method.
 
-411=The HyperText Transfer Protocol (HTTP) 411 Length Required client error response code indicates that the server refuses to accept the request without a defined Content-Length header.
+406=The 406 Not Acceptable is an HTTP response status code indicating that the client has requested a response using Accept- headers that the server is unable to fulfill. Reiview the target service URL and try invoking the request using cURL. 
 
+407=Proxy Authentication Required.
+
+408=Request Timeout.
+
+409=Conflict. 
+
+410=The 410 Gone Error is an HTTP response status code indicating that the resource requested by the client has been permanently deleted, and that the client should not expect an alternative redirection or forwarding address. While 404 (Not Found) indicates that the resource may be temporarily unavailable, 410 categorically says that the resource is permanently purged and requests to this URL should not be repeated. It is recommended to review the target service URL specified in the connection and endpoint configuration and replace it. 
+
+411=The HyperText Transfer Protocol (HTTP) 411 Length Required client error response code indicates that the server refuses to accept the request without a defined Content-Length header. This is a common condition with POST calls especially when the target service expects an explicit content-length header in the request. To fix this error or force a content-length header, set EnfoceEmptyJSONObjectPayload connectivityProperty from the OIC mapper preceding the REST adapter invoke configuration. 
+
+412=Precondition Failed. 
 
 500=The 500 Internal Server Error is a very general HTTP status code that means something has gone wrong on the server side, but the target service could not be more specific on what the exact problem is. You can trace the cURL representation of the request sent to the target service from the Oracle Integration Cloud server logs. Try invoking the target service using cURL.
 
