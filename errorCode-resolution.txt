@@ -1,8 +1,11 @@
 # HTTP error codes and how to solve these conditions.
 
-400=A 400 Bad Request Error indicates that the target service is unable (or refuses) to process the request sent by the client (Oracle Integration Cloud), due to an issue that is perceived by the server to be a client problem. You can trace the cURL representation of the request sent to the target service from the Oracle Integration Cloud server logs. Try invoking the target service using cURL.  
+400=A 400 Bad Request Error indicates that the target service is unable (or refuses) to process the request sent by the client (Oracle Integration Cloud), due to an issue that is perceived by the server to be a client problem. You can trace the cURL representation of the request sent to the target service from the Oracle Integration Cloud server logs. Try invoking the target service using cURL. It may also be that one of the intermediaries (proxy, LBR) could be returning this code.  
 
-401=The 401 error message is usually returned by services that requires user credentials. So if you have got this error then it probably means you entered an invalid username or password. 
+401=The 401 error message is usually returned by services that requires user credentials. So if you have got this error then it 
+probably means you entered an invalid username or password. It may also be that one of the intermediaries (proxy, LBR) could be returning this code.  
+
+402=402 Payment Required: This code might be used as part of some form of digital cash or micropayment scheme, this code is not usually used. Try invoking the target service using cURL.  
 
 403=403 error (forbidden), usually implies a lack of permissions to access the API. You might be required to consult the target API documentation or work with the owner/administrator to resolve this issue. There may be several conditions leading to this, but the exact cause is best described by the target service authorization server. Some probable causes of 403 errors are as follows: (i) The current user is not authorized to access the resources, (ii) The access token was procured for a scope that does not cover the API being accessed, (iii) The access token expired or is not valid to access the resource any longer, (iv) The authorization server revoked access privileges to a particular resource.
 
@@ -12,20 +15,52 @@
 
 406=The 406 Not Acceptable is an HTTP response status code indicating that the client has requested a response using Accept- headers that the server is unable to fulfill. Reiview the target service URL and try invoking the request using cURL. 
 
-407=Proxy Authentication Required.
+407=Similar to 401 Unauthorized, the server isn’t reporting a direct authentication issue, but is instead reporting that the client needs to authenticate with a proxy server, which must send a special Proxy-Authenticate header as part of the response. As with most HTTP response codes — especially those that indicate an error — the cause of a 407 Proxy Authentication Required error code can be challenging to find and fix. Please ensure that the call to the target service using the specified proxy is successful using a cURL request. Edit the adapter configuraion to replicate the same request with the appropriate proxy authentication.
 
-408=Request Timeout.
+408= The 408 Request Timeout is an HTTP response status code indicating that the server did not receive a complete request from Oracle Integration Cloud within the server’s allotted timeout period. If the same request can be completed using a cURL or another REST client, then contact Oracle support since there is a condition that is preventing Oracle to send the complete request to the service.
 
-409=Conflict. 
+409=This error usually indicates that the request submitted by Oracle Integration Cloud can not be completed because it conflicts with some rule already established by the servicve. This is usually a functional error. If the call to the target service using a cURL request is successful then contact oracle support with the details.
 
 410=The 410 Gone Error is an HTTP response status code indicating that the resource requested by the client has been permanently deleted, and that the client should not expect an alternative redirection or forwarding address. While 404 (Not Found) indicates that the resource may be temporarily unavailable, 410 categorically says that the resource is permanently purged and requests to this URL should not be repeated. It is recommended to review the target service URL specified in the connection and endpoint configuration and replace it. 
 
 411=The HyperText Transfer Protocol (HTTP) 411 Length Required client error response code indicates that the server refuses to accept the request without a defined Content-Length header. This is a common condition with POST calls especially when the target service expects an explicit content-length header in the request. To fix this error or force a content-length header, set EnfoceEmptyJSONObjectPayload connectivityProperty from the OIC mapper preceding the REST adapter invoke configuration. 
 
-412=Precondition Failed. 
+412=412 Precondition Failed: The server does not meet one of the preconditions that the requester put on the request. If the call to the target service using a cURL request is successful then contact oracle support with the details.
 
-500=The 500 Internal Server Error is a very general HTTP status code that means something has gone wrong on the server side, but the target service could not be more specific on what the exact problem is. You can trace the cURL representation of the request sent to the target service from the Oracle Integration Cloud server logs. Try invoking the target service using cURL.
+413=413 Request Entity Too Large: The request is larger than the server is willing or able to process. If the call to the target service using a cURL request is successful then contact oracle support with the details.
 
-502=The HyperText Transfer Protocol (HTTP) 502 Bad Gateway server error response code indicates that the server, while acting as a gateway or proxy, received an invalid response from the upstream server. 
+414=414 Request-URI Too Long: The URI provided was too long for the server to process. If the call to the target service using a cURL request is successful then contact oracle support with the details.
 
-503=The Web server (running the service) is currently unable to handle the HTTP request due to a temporary overloading or maintenance of the server. The implication is that this is a temporary condition which will be alleviated after some delay.
+415=HTTP 415 - Unsupported Media Type with proper content type. Check the content-type header in the request. If the call to the target service using a cURL request is successful then contact oracle support with the details.
+
+416=416 Requested Range Not Satisfiable: The client has asked for a portion of the file, but the server cannot supply that portion. For example, if the client asked for a part of the file that lies beyond the end of the file. If the call to the target service using a cURL request is successful then contact oracle support with the details.
+
+417=417 Expectation Failed: The server cannot meet the requirements of the Expect request-header field. If the call to the target service using a cURL request is successful then contact oracle support with the details.
+
+418=418 I’m a teapot: This code was defined in 1998 as one of the traditional IETF April Fools’ jokes, in RFC 2324, Hyper Text Coffee Pot Control Protocol, and is not expected to be implemented by actual HTTP servers. However, known implementations do exist.
+
+422=422 Unprocessable Entity
+
+423=423 Locked: The resource that is being accessed is locked.
+
+424=Failed Dependency
+
+425=Unordered Collection
+
+426=Upgrade Required
+
+428=Precondition Required
+
+429=429 Too Many Requests: The user has sent too many requests in a given amount of time. Intended for use with rate limiting schemes. This error might also appear if there are cyclic re-directs in the service invocation. Since Oracle Integration Cloud follows re-directs, any cycle may lead to many requests leading to a time-out, a socket exception or this error code. 
+
+# Server side error codes
+
+500=The 500 Internal Server Error is a very general HTTP status code that means something has gone wrong on the server side, but the target service could not be more specific on what the exact problem is. You can trace the cURL representation of the request sent to the target service from the Oracle Integration Cloud server logs. Try invoking the target service using cURL. 
+
+501=501 Not Implemented: The server either does not recognise the request method, or it lacks the ability to fulfill the request. You can trace the cURL representation of the request sent to the target service from the Oracle Integration Cloud server logs. Try invoking the target service using cURL. 
+
+502=The HyperText Transfer Protocol (HTTP) 502 Bad Gateway server error response code indicates that the server, while acting as a gateway or proxy, received an invalid response from the upstream server. There could be several reasons including 1) The domain name not resolvable, 2) The origin server is down, 3) A firewall or another intermediary blocks the request. Try to replicate the same request using the same set of intermediaries using cURL or any other REST client. You can trace the cURL representation of the request sent to the target service from the Oracle Integration Cloud server logs. Try invoking the target service using cURL. If the problem persists, contact the service admin. 
+
+503=The Web server (running the service) is currently unable to handle the HTTP request due to a temporary overloading or maintenance of the server. The implication is that this is a temporary condition which will be alleviated after some delay. Furthermore, 503 can sometimes be returned by an intermediary as well. You can trace the cURL representation of the request sent to the target service from the Oracle Integration Cloud server logs. Try invoking the target service using cURL. If the problem persists, contact the service admin.  
+
+504=A 504 Gateway Timeout indicates that the proxy/edge server did not get a response from the upstream/origin server in a given time window. This condition could be realized when the origin server is down or not working properly.  This is usually a temporary condition. You can trace the cURL representation of the request sent to the target service from the Oracle Integration Cloud server logs. Try invoking the target service using cURL. If the problem persists, contact the service admin. 
