@@ -3,7 +3,8 @@
 400=A 400 Bad Request Error indicates that the target service is unable (or refuses) to process the request sent by the client (Oracle Integration Cloud), due to an issue that is perceived by the server to be a client problem. You can trace the cURL representation of the request sent to the target service from the Oracle Integration Cloud server logs. Try invoking the target service using cURL. It may also be that one of the intermediaries (proxy, LBR) could be returning this code.  
 
 401=The 401 error message is usually returned by services that requires user credentials. So if you have got this error then it 
-probably means you entered an invalid username or password. It may also be that one of the intermediaries (proxy, LBR) could be returning this code.  
+probably means you entered an invalid username or password. It may also be that one of the intermediaries (proxy, LBR) could be returning this code. Please note, test connection doesn't validate the credentials and even if it is successful, it may not be sufficient. As the parameters defined within the connection page are used to call the target endpoint REST API, which is configured as part of endpoint configuration, it is strongly recommended that the endpoint configuration that uses this connection is tested. Re-check or re-configure the connection with the correct set of credentials. Test connection is only used to validate the parameters defined within the connection page. 1) This includes REST API definition - we try to retrieve the API Definition to understand the resources within. 2) API Base URL - We ensure that the base URL is reachable and can be trusted by OIC. 3) OAuth Configuration - We obtain the access tokens and try to refresh the access token. 
+ 
 
 402=402 Payment Required: This code might be used as part of some form of digital cash or micropayment scheme, this code is not usually used. Try invoking the target service using cURL.  
 
